@@ -31,8 +31,13 @@ export class NoteController {
     required: false,
     enum: ['title', 'createdAt', 'updatedAt'],
   })
-  findAll(@Query('sortBy') sortBy?: string) {
-    return this.noteService.findAll({ sortBy });
+  @ApiQuery({
+    name: 'filter',
+    required: false,
+    description: 'Filtrar por título',
+  })
+  findAll(@Query('sortBy') sortBy?: string, @Query('filter') filter?: string) {
+    return this.noteService.findAll({ sortBy, filter });
   }
 
   @Get(':id')

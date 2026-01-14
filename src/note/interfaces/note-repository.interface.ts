@@ -7,6 +7,7 @@ export interface FindAllParams {
   limit?: number;
   offset?: number;
   sortBy?: 'title' | 'createdAt' | 'updatedAt'; // Requisito
+  filter?: string;
 }
 
 export interface INoteRepository {

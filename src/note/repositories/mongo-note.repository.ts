@@ -39,7 +39,12 @@ export class MongoNoteRepository implements INoteRepository {
   }
 
   async findAll(params?: FindAllParams): Promise<Note[]> {
-    const query = this.noteModel.find();
+    const filterQuery: any = {};
+    if (params?.filter) {
+      filterQuery.title = { $regex: params.filter, $options: 'i' }; // Filtro por título (case-insensitive)
+    }
+
+    const query = this.noteModel.find(filterQuery);
 
     if (params?.sortBy) {
       query.sort({ [params.sortBy]: 1 });

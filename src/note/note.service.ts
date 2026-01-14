@@ -19,6 +19,7 @@ export class NoteService {
     // 1. Buscamos todas las notas en la BD
     const notes = await this.noteRepository.findAll({
       sortBy: query.sortBy, // ordenamiento
+      filter: query.filter, // filtro por título
     });
 
     // 2. REGLA DE NEGOCIO: Quitamos el contenido de la respuesta
@@ -35,7 +36,13 @@ export class NoteService {
       throw new NotFoundException(`Nota con ID ${id} no encontrada`);
     }
     // Aquí SÍ devolvemos el contenido completo [cite: 15]
-    return note;
+    return {
+      id: note.id,
+      titulo: note.title,
+      contenido: note.content,
+      fecha_creacion: note.createdAt,
+      fecha_modificacion: note.updatedAt,
+    };
   }
 
   async update(id: string, updateNoteDto: UpdateNoteDto) {
