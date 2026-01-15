@@ -36,13 +36,7 @@ export class NoteService {
       throw new NotFoundException(`Nota con ID ${id} no encontrada`);
     }
     // Aquí SÍ devolvemos el contenido completo [cite: 15]
-    return {
-      id: note.id,
-      titulo: note.title,
-      contenido: note.content,
-      fecha_creacion: note.createdAt,
-      fecha_modificacion: note.updatedAt,
-    };
+    return note;
   }
 
   async update(id: string, updateNoteDto: UpdateNoteDto) {
